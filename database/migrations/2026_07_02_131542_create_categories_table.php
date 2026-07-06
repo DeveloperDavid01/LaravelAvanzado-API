@@ -13,9 +13,13 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        $category = new \App\Models\Category();
+        $category->name = 'Otros';
+        $category->save();
+
+        Schema::create('products', function (Blueprint $table) use ($category) {
+            $table->unsignedBigInteger('category_id')->default($category->id);
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
@@ -26,6 +30,8 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('category_id');
+        });
     }
 }

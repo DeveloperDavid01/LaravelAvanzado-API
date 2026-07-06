@@ -17,6 +17,9 @@ class ProductControllerTest extends TestCase
 
     public function test_index()
     {
+        Sanctum::actingAs(
+            factory(User::class)->create();
+        );
         $product = Product::factory()->count(5)->create();
 
         $response = $this->json('GET', '/api/products');
@@ -33,7 +36,7 @@ class ProductControllerTest extends TestCase
             'name' => 'Hola',
             'price' => 1000,
         ];
-        $response = $this->json('POST', '/api/products', $data);
+        $response = $this->json('POST', '/api/products', $data);  
 
         $response
             ->assertSuccessful()
