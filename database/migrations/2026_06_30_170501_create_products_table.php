@@ -13,11 +13,13 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->float('price');
-            $table->timestamps();
+        $user = factory(\App\Models\User::class)->create([
+            'name' => 'Administrador',
+        ]);
+
+        Schema::create('products', function (Blueprint $table) use ($user) {
+            $table->unsignedBigInteger('created_by')->default($user->id);
+ 
         });
     }
 
@@ -28,6 +30,8 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('created_by');
+        });
     }
 }
