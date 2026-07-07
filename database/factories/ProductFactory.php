@@ -14,14 +14,12 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->text(20), // Cambiado a text(20) ya que 'name' suele generar nombres de personas
             'price' => $this->faker->numberBetween(10000, 60000),
-            'category_id' => function () {
-                return \App\Models\Category::query()->inRandomOrder()->first()->id;
-            },
-            'created_by' => function () {
-                return \App\Models\User::query()->inRandomOrder()->first()->id;
-            }
+            
+            'category_id' => \App\Models\Category::factory(),
+            
+            'created_by' => \App\Models\User::factory(),
         ];
     }
 }
