@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,8 +14,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\User::class, 10)->create();
+       
+        \App\Models\User::factory()->count(10)->create();
         $this->call(CategorySeeder::class);
         $this->call(ProductSeeder::class);
+
+        \App\Models\User::factory()->create([
+            'name' => 'Usuario Prueba',
+            'email' => null,
+            'email_verified_at' => null,
+            'password' => Hash::make('password')
+        ]);
+
+        
     }
+        
+        
 }
