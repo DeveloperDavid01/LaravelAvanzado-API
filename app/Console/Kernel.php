@@ -8,6 +8,15 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     /**
+     * Los comandos de Artisan provistos por tu aplicación.
+     *
+     * @var array
+     */
+    protected $commands = [
+        \App\Console\Commands\SendEmailVerificationReminderCommand::class,
+    ];
+
+    /**
      * Define the application's command schedule.
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
