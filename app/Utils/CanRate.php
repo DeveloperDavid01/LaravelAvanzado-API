@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use Illuminate\Database\Eloquent\Model; 
+use App\Events\ModelRated;
 
 trait CanRate
 {
@@ -37,8 +38,12 @@ trait CanRate
             'rateable_type' => get_class($model)
         ]);
 
+        event(new ModelRated($this, $model, $score));
+
         return true;
     }
+
+
 
     public function hasRated(Model $model)
     {

@@ -24,7 +24,25 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('email:send-reminders')->everyMinute();
+
+        $schedule->command('inspire')
+        ->evenInMaintenanceMode()
+        ->sendOutputTo(storage_path('logs/inspire.log'))
+        ->everyMinute();
+
+        $schedule->call(function () {
+            echo "Todo funcionando correctamente.";
+        })->everyMinute();
+
+        $schedule->command('SendEmailVerificationReminderCommand')
+            ->withoutOverlapping()
+            ->onOneServer()
+            ->mondays();
+
+        $schedule->command('SendEmailVerificationReminderCommand')
+            ->onOneServer()
+            ->daily(); 
     }
 
     /**
