@@ -14,7 +14,7 @@ use App\Http\Controllers\NewsletterController;
 |--------------------------------------------------------------------------
 */
 
-// Ruta pública para obtener el Token
+// Ruta pública para obtener el Tokenevent
 Route::post('/sanctum/token', UserTokenController::class);
 
 // Agrupamos todas las rutas que requieren autenticación con Sanctum
