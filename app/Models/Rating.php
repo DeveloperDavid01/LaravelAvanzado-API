@@ -11,7 +11,7 @@ class Rating extends Pivot
 
     public $incrementing = true;
 
-    prorected $table = 'ratings';
+    protected $table = 'ratings';
 
     public function rateable()
     {
